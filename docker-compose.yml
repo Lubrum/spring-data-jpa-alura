@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  db:
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_INITDB_SKIP_TZINFO: "yes"
+    image: mariadb:10.9.5@sha256:d3783098334e0b41054dff7f656ab7fb24e7a950a6ff81486df3dc7a82b48169
+    container_name: my_db
+    restart: always
+    volumes:
+      #- ./src/main/resources/db/init/create_databases_dev.sql:/docker-entrypoint-initdb.d/create_databases.sql
+      - type: bind
+        source: ./db_data
+        target: /var/lib/mysql
+    ports:
+      - "3307:3306"
+    #command: mysqld --max_connections=151 # esse é o valor default: aumentar conforme a necessidade em /etc/my.cnf.d/server.cnf
