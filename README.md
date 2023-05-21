@@ -11,6 +11,7 @@ Tecnologia utilizada:
 
 - docker;
 - docker compose;
+- Java 20;
 
 # Modelo conceitual
 
@@ -21,18 +22,24 @@ Tecnologia utilizada:
 Na pasta raíz do projeto:
 
 ```bash
-docker compose up -d
+docker compose up -d --build
 ```
 
-O comando acima executa o banco de dados Postgres. 
+O comando acima cria um container e executa o banco de dados MariaDb. 
 
-Para parar a execução
+Para parar a execução do container com o banco de dados:
 
 ```bash
 docker compose down
 ```
 
+Para executar a aplicação Spring Boot, basta clicar no 'run (app)' na IDE do IntelliJ ou, no terminal e na pasta raíz do projeto:
 
+```bash
+mvn spring-boot:run
+```
+
+Obs: só funciona se o maven executar em uma versão do Java igual ou superior a versão do projeto. 
 
 # Deploy
 
