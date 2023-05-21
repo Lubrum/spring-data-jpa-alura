@@ -27,23 +27,13 @@ public class CrudUnidadeTrabalhoService {
 			System.out.println("4 - Deletar");
 			
 			int action = scanner.nextInt();
-			
+
 			switch (action) {
-			case 1:
-				salvar(scanner);
-				break;
-			case 2:
-				atualizar(scanner);
-				break;
-			case 3:
-				visualizar();
-				break;
-			case 4:
-				deletar(scanner);
-				break;
-			default:
-				system = false;
-				break;
+				case 1 -> salvar(scanner);
+				case 2 -> atualizar(scanner);
+				case 3 -> visualizar();
+				case 4 -> deletar(scanner);
+				default -> system = false;
 			}
 			
 		}
@@ -86,7 +76,7 @@ public class CrudUnidadeTrabalhoService {
 	
 	private void visualizar() {
 		Iterable<UnidadeTrabalho> unidades = unidadeTrabalhoRepository.findAll();
-		unidades.forEach(unidade -> System.out.println(unidade));
+		unidades.forEach(System.out::println);
 	}
 	
 	private void deletar(Scanner scanner) {

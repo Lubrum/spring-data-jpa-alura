@@ -33,23 +33,13 @@ public class RelatoriosService {
 			System.out.println("4 - Pesquisa funcionario salario");
 			
 			int action = scanner.nextInt();
-			
+
 			switch (action) {
-			case 1:
-				buscaFuncionarioNome(scanner);
-				break;
-			case 2:
-				buscaFuncionarioNomeSalarioMaiorData(scanner);
-				break;
-			case 3:
-				buscaFuncionarioDataContratacao(scanner);
-				break;
-			case 4:
-				pesquisafuncionarioSalario();
-				break;
-			default:
-				system = false;
-				break;
+				case 1 -> buscaFuncionarioNome(scanner);
+				case 2 -> buscaFuncionarioNomeSalarioMaiorData(scanner);
+				case 3 -> buscaFuncionarioDataContratacao(scanner);
+				case 4 -> pesquisafuncionarioSalario();
+				default -> system = false;
 			}
 			
 		}

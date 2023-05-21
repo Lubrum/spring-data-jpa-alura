@@ -3,16 +3,16 @@ package br.com.alura.spring.data.orm;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -32,9 +32,8 @@ public class Funcionario {
 	private Cargo cargo;
 	@Fetch(FetchMode.SELECT)
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "funcionarios_unidades", joinColumns = {
-			@JoinColumn(name = "fk_funcionario") }, 
-	inverseJoinColumns = { @JoinColumn(name = "fk_unidade") })
+	@JoinTable(name = "funcionarios_unidades", joinColumns = {@JoinColumn(name = "fk_funcionario") },
+			inverseJoinColumns = { @JoinColumn(name = "fk_unidade") })
 	private List<UnidadeTrabalho> unidadeTrabalhos;
 
 	public Integer getId() {

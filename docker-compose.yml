@@ -1,18 +1,37 @@
 version: '3.9'
 
 services:
+#  app:
+#    image: 'lucianobrum/springdata:${ARTIFACT_VERSION}'
+#    env_file:
+#      - .env
+#    build:
+#      context: .
+#      args:
+#        SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+#        APP_PORT: ${APP_PORT}
+#        DB_PORT: ${DB_PORT}
+#        ROOT_USERNAME: ${ROOT_USERNAME}
+#        ROOT_PASSWORD: ${ROOT_PASSWORD}
+#    container_name: app
+#    restart: always
+#    depends_on:
+#      - db
+#    ports:
+#      - ${APP_PORT}:8080
+
   db:
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: ${ROOT_PASSWORD}
       MYSQL_INITDB_SKIP_TZINFO: "yes"
     image: mariadb:10.9.5@sha256:d3783098334e0b41054dff7f656ab7fb24e7a950a6ff81486df3dc7a82b48169
     container_name: my_db
     restart: always
     volumes:
-      #- ./src/main/resources/db/init/create_databases_dev.sql:/docker-entrypoint-initdb.d/create_databases.sql
+      - ./src/main/resources/db/init/create_databases.sql:/docker-entrypoint-initdb.d/create_databases.sql
       - type: bind
         source: ./db_data
         target: /var/lib/mysql
     ports:
-      - "3307:3306"
+      - ${DB_PORT}:${DB_PORT}
     #command: mysqld --max_connections=151 # esse é o valor default: aumentar conforme a necessidade em /etc/my.cnf.d/server.cnf

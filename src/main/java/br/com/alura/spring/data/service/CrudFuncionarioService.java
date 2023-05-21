@@ -2,10 +2,7 @@ package br.com.alura.spring.data.service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -48,27 +45,15 @@ public class CrudFuncionarioService {
 			System.out.println("4 - Deletar");
 			
 			int action = scanner.nextInt();
-			
+
 			switch (action) {
-			case 1:
-				salvar(scanner);
-				break;
-			case 2:
-				atualizar(scanner);
-				break;
-			case 3:
-				visualizar(scanner);
-				break;
-			case 4:
-				deletar(scanner);
-				break;
-			default:
-				system = false;
-				break;
+				case 1 -> salvar(scanner);
+				case 2 -> atualizar(scanner);
+				case 3 -> visualizar(scanner);
+				case 4 -> deletar(scanner);
+				default -> system = false;
 			}
-			
 		}
-		
 	}
 	
 	private void salvar(Scanner scanner) {
@@ -95,7 +80,7 @@ public class CrudFuncionarioService {
         funcionario.setSalario(salario);
         funcionario.setDataContratacao(LocalDate.parse(dataContratacao, formatter));
         Optional<Cargo> cargo = cargoRepository.findById(cargoId);
-        funcionario.setCargo(cargo.get());
+		cargo.ifPresent(funcionario::setCargo);
         funcionario.setUnidadeTrabalhos(unidades);
 
         funcionarioRepository.save(funcionario);
@@ -103,16 +88,16 @@ public class CrudFuncionarioService {
 	}
 	
 	private List<UnidadeTrabalho> unidade(Scanner scanner) {
-        Boolean isTrue = true;
+        boolean isTrue = true;
         List<UnidadeTrabalho> unidades = new ArrayList<>();
 
         while (isTrue) {
             System.out.println("Digite o unidadeId (Para sair digite 0)");
-            Integer unidadeId = scanner.nextInt();
+            int unidadeId = scanner.nextInt();
 
             if(unidadeId != 0) {
                 Optional<UnidadeTrabalho> unidade = unidadeTrabalhoRepository.findById(unidadeId);
-                unidades.add(unidade.get());
+				unidade.ifPresent(unidades::add);
             } else {
                 isTrue = false;
             }
@@ -147,7 +132,7 @@ public class CrudFuncionarioService {
         funcionario.setSalario(salario);
         funcionario.setDataContratacao(LocalDate.parse(dataContratacao, formatter));
         Optional<Cargo> cargo = cargoRepository.findById(cargoId);
-        funcionario.setCargo(cargo.get());
+		cargo.ifPresent(funcionario::setCargo);
 
         funcionarioRepository.save(funcionario);
         System.out.println("Alterado");
@@ -155,7 +140,7 @@ public class CrudFuncionarioService {
 	
 	private void visualizar(Scanner scanner) {
 		System.out.println("Qual pagina voce deseja visualizar");
-		Integer page = scanner.nextInt();
+		int page = scanner.nextInt();
 		
 		Pageable pageable = PageRequest.of(page, 5, Sort.by(Sort.Direction.ASC, "nome"));
 		Page<Funcionario> funcionarios = funcionarioRepository.findAll(pageable);
@@ -163,7 +148,7 @@ public class CrudFuncionarioService {
 		System.out.println(funcionarios);
 		System.out.println("Pagina atual " + funcionarios.getNumber());
 		System.out.println("Total elemento " + funcionarios.getTotalElements());
-		funcionarios.forEach(funcionario -> System.out.println(funcionario));
+		funcionarios.forEach(System.out::println);
 	}
 	
 	private void deletar(Scanner scanner) {
