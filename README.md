@@ -6,8 +6,9 @@ Tecnologia utilizada:
 
 - Java 20
 - Spring Boot 3
+- Docker e docker compose (banco de dados)
 
-# Pré-requisitos do projeto
+# Pré-requisitos (instalações necessárias)
 
 - docker;
 - docker compose;
