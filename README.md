@@ -14,9 +14,9 @@ Tecnologia utilizada:
 - docker compose;
 - Java 20;
 
-# Modelo conceitual
+# Modelo ER
 
-// TODO
+![Modelo ER](./images/er-diagram.png)
 
 # Execução do projeto
 
